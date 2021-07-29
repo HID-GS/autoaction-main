@@ -2,6 +2,9 @@ name: Auto PR on Parent Repo Responder
 
 on: [repository_dispatch]
 
+permissions:
+  pull-requests: write
+
 jobs:
   auto-pr:
     runs-on: ubuntu-latest
@@ -35,8 +38,6 @@ jobs:
           git checkout -b ${BRANCHNAME}; \
           git push -u origin ${BRANCHNAME}
       - name: Create PR
-        permissions:
-          pull-requests: write
         uses: devops-infra/action-pull-request@v0.4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
