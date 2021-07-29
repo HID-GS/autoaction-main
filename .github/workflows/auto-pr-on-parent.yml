@@ -13,8 +13,8 @@ jobs:
       - name: Checkout submodule
         uses: actions/checkout@v2
         with:
-          path: ${{ github.event.client_playload.repository }}
-          ref: ${{ github.event.client_playload.sha }}
+          path: ${{ github.event.client_payload.repository }}
+          ref: ${{ github.event.client_payload.sha }}
         if: github.event.action == 'apop-pr-merged'
       - name: Event Information
         run: |
@@ -24,6 +24,6 @@ jobs:
         run: |
           env | sort; \
           ls -la; \
-          cd ${{ github.event.client_playload.repository }}; \
+          cd ${{ github.event.client_payload.repository }}; \
           git fetch --all; \
           git co ${{ github.event.client_payload.sha }}
