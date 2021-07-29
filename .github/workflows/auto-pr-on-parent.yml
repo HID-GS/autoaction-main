@@ -30,5 +30,5 @@ jobs:
           git log; \
           cd ..; \
           git add ${{ github.event.client_payload.repository }}; \
-          git ci -m "Auto update ${{ github.event.client_payload }} submodule"; \
+          git commit -m "Auto update ${{ github.event.client_payload }} submodule"; \
           git push
