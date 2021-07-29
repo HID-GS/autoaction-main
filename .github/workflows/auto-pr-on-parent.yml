@@ -14,8 +14,8 @@ jobs:
         run: |
           mkdir ${HOME}/.ssh; \
           echo ${{ secrets.AAKEY }} > ${HOME}/.ssh/id_ed25519; \
-          chmod 700 ${HOME}/.ssh; \
-          chmod 600 ${HOME}/.ssh/id_ed25519; \
+          sudo chmod 700 ${HOME}/.ssh; \
+          sudo chmod 600 ${HOME}/.ssh/id_ed25519; \
       - name: Event Information
         run: |
           echo "Event '${{ github.event.action }}' received from '${{ github.event.client_payload.repository }}' commit '${{ github.event.client_payload.sha }}'"
