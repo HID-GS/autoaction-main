@@ -1,0 +1,20 @@
+name: Auto PR on Parent Repo Responder
+
+on: [repository_dispatch]
+
+jobs:
+  ping-pong:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          submodules: 'true'
+      - name: Event Information
+        run: |
+          echo "Event '${{ github.event.action }}' received from '${{ github.event.client_payload.repository }}' commit '${{ github.event.client_payload.sha }}'"
+      - name: APOP Create PR
+        if: github.event.action == 'apop-pr-merged'
+        run: |
+          env | sort; \
+          ls -la
