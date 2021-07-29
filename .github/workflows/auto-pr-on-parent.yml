@@ -27,4 +27,4 @@ jobs:
           ls -la; \
           cd ${{ github.event.client_payload.repository }}; \
           git fetch --all; \
-          git co ${{ github.event.client_payload.sha }}
+          git log
