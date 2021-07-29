@@ -3,7 +3,7 @@ name: Auto PR on Parent Repo Responder
 on: [repository_dispatch]
 
 jobs:
-  ping-pong:
+  auto-pr:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
