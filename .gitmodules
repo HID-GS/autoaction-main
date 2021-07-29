@@ -1,0 +1,6 @@
+[submodule "autoaction-sub1"]
+	path = autoaction-sub1
+	url = git@github.com:hid-gs/autoaction-sub1.git
+[submodule "autoaction-sub2"]
+	path = autoaction-sub2
+	url = git@github.com:hid-gs/autoaction-sub2.git
