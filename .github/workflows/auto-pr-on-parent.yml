@@ -17,4 +17,8 @@ jobs:
         if: github.event.action == 'apop-pr-merged'
         run: |
           env | sort; \
-          ls -la
+          ls -la; \
+          cd ${{ github.event.client_playload.repository }}; \
+          git fetch --all; \
+          git co ${{ github.event.client_payload.sha }}
+        
