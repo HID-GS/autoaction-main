@@ -27,4 +27,8 @@ jobs:
           ls -la; \
           cd ${{ github.event.client_payload.repository }}; \
           git fetch --all; \
-          git log
+          git log; \
+          cd ..; \
+          git add ${{ github.event.client_payload.repository }}; \
+          git ci -m "Auto update ${{ github.event.client_payload }} submodule"; \
+          git push
