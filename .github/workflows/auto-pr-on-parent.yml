@@ -35,9 +35,11 @@ jobs:
           git checkout -b ${BRANCHNAME}; \
           git push -u origin ${BRANCHNAME}
       - name: Create PR
+        permissions:
+          pull-requests: write
         uses: devops-infra/action-pull-request@v0.4
         with:
-          github_token: ${{ secrets.ACCESS_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           target_branch: main
           title: Automated PR
           body: "**Automated pull request**"
