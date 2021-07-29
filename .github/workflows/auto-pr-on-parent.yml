@@ -4,6 +4,7 @@ on: [repository_dispatch]
 
 permissions:
   pull-requests: write
+  repos: write
 
 jobs:
   auto-pr:
