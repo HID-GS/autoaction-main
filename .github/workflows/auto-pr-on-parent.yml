@@ -16,8 +16,6 @@ jobs:
           path: ${{ github.event.client_playload.repository }}
           ref: ${{ github.event.client_playload.sha }}
         if: github.event.action == 'apop-pr-merged'
-        run: |
-
       - name: Event Information
         run: |
           echo "Event '${{ github.event.action }}' received from '${{ github.event.client_payload.repository }}' commit '${{ github.event.client_payload.sha }}'"
