@@ -13,7 +13,7 @@ jobs:
         if: github.event.action == 'ping'
         run: |
           env | sort;
-          curl -s -X POST https://api.github.com/repos/hid-gs/autoaction-sub1/dispatches \
+          curl -s -X POST https://api.github.com/repos/${{ github.event.client_payload.repository }}/dispatches \
           -H 'Accept: application/vnd.github.everest-preview+json' \
           -u ${{ secrets.ACCESS_TOKEN }} \
           --data '{"event_type": "pong", "client_payload": { "repository": "'"$GITHUB_REPOSITORY"'" }}'
