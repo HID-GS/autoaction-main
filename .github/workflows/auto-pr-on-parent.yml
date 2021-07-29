@@ -31,7 +31,7 @@ jobs:
           git config --global user.email 'webteam@hidglobal.com'; \
           git add ${{ github.event.client_payload.repository }}; \
           git commit --author 'Github Automation <webteam@hidglobal.com>' -m "Auto update ${{ github.event.client_payload }} submodule"; \
-          git checkout -b ${{ github.event.client_payload.repository }}_update; \
+          git checkout -b ${{ github.event.client_payload.repository }}__update__${GITHUB_SHA}; \
           git push -u origin ${{ github.event.client_payload.repository }}__update__${GITHUB_SHA}
       - name: Create PR
         uses: devops-infra/action-pull-request@v0.4
