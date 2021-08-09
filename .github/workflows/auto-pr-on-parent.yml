@@ -45,8 +45,8 @@ jobs:
           target_branch: main
           title: Automated PR - ${{ github.event.client_payload.repository }} - ${{ github.event.client_payload.sha }}
           body: |
-            "***Automated pull request***
+            ***Automated pull request***
 
-            Origin repository: ${{ github.event.client_payload.repository }}
-            Origin Commit: ${{ github.event.client_payload.sha }}"
+            Origin Repository: ${{ github.event.client_payload.repository }}
+            Origin Commit: ${{ github.event.client_payload.sha }}
 
