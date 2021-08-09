@@ -43,6 +43,10 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           target_branch: main
-          title: Automated PR
-          body: "**Automated pull request**"
+          title: Automated PR - ${{ github.event.client_payload.repository }} - ${{ github.event.client_payload.sha }}
+          body: |
+            "***Automated pull request***
+
+            Origin repository: ${{ github.event.client_payload.repository }}
+            Origin Commit: ${{ github.event.client_payload.sha }}"
 
