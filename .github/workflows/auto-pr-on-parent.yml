@@ -31,12 +31,14 @@ jobs:
         run: |
           echo "check for pending PRs"
           git fetch --all
-          git ls-remote
-          git ls-remote | \
-            awk '$0 ~ /refs\/pull\/[0-9]*\/merge/ {print $1}' | \
-            while read hex; do \
-              git show --name-stats $hex 2> /dev/null | \
-              awk '$0 ~ /^[AMD]\t/ {print $2}'
+          # find hex for existing Merge PRs
+          git ls-remote 2> /dev/null | \
+            sed -ne 's#.*refs/pull/\([0-9]*\)/merge.*#\1#gp' | \
+            while read MERGE_HEX; do \
+              # find hex for equivalent Pull PRs
+              PULL_HEX=$(git ls-remote 2> /dev/null | grep "refs/pull/$MERGE_HEX/head" | awk '{print $1}')
+              # find files changed
+              git show --name-status $PULL_HEX
             done
           echo "done"
       - name: APOP Create PR
