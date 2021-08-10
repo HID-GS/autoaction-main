@@ -37,7 +37,7 @@ jobs:
           git config --global user.name 'Github Automation'; \
           git config --global user.email 'webteam@hidglobal.com'; \
           git add ${{ github.event.client_payload.repository }}; \
-          git commit --author 'Github Automation <webteam@hidglobal.com>' -m "Auto update ${{ github.event.client_payload }} submodule"; 
+          git commit --author 'Github Automation <webteam@hidglobal.com>' -m "Auto update ${{ github.event.client_payload.repository }} submodule"; 
           BRANCHNAME="${{ github.event.client_payload.repository }}__update__${GITHUB_SHA}"
           git checkout -b ${BRANCHNAME}; \
           git push -u origin ${BRANCHNAME}
