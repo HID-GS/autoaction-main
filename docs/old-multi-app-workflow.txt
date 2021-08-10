@@ -1,0 +1,26 @@
+@startuml
+header 2021-08-10
+title Manual Multi-App PR Sequence Diagram
+autonumber "<b>[000]"
+actor "A. Site User" as U
+collections "B. Child Submodules Repo" as C
+collections "C. Parent Repo" as P
+database "D. Slack" as S
+
+group interaction with submodule repo
+
+  U -> C : pull request rebased
+  C -> S : notify team of rebase
+  
+end
+
+group interaction with parent repo
+
+  U -> U : update parent folder (cd into Parent, pull & rebase main)
+  U -> P : create new branch
+  U -> P : create new PR (cd into submodule, pull new main ref, cd back to main)
+  U -> P : rebase PR
+  P -> S : notify team of PR rebase
+
+end
+@enduml
