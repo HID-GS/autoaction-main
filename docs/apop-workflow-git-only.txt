@@ -1,0 +1,26 @@
+@startuml
+header 2021-08-10
+title Auto-PR On Parent Repo Sequence Diagram
+autonumber "<b>[000]"
+actor "A. Site User" as U
+collections "B. Child Submodules Repo" as C
+collections "C. Parent Repo" as P
+database "D. Slack" as S
+
+group interaction with submodule repo
+
+  U -> C : pull request rebased
+  C -> P : workflow dispatcher signal
+  P -> P : new branch triggered
+  P -> P : new PR triggered on new branch
+  P -> S : send link to PR on parent
+
+end
+
+group interaction with parent repo
+
+  U -> P : rebase PR
+  P -> S : notify team of PR rebase
+
+end
+@enduml
