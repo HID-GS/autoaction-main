@@ -30,6 +30,8 @@ jobs:
       - name: Check for pre-existing PR on same submodule
         run: |
           echo "check for pending PRs"
+          git fetch --all
+          git ls-remote
           git ls-remote | \
             awk '$0 ~ /refs\/pull\/[0-9]*\/merge/ {print $1}' | \
             while read hex; do \
