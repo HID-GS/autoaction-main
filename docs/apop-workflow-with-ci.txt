@@ -1,0 +1,36 @@
+@startuml
+header 2021-08-10
+title Auto-PR On Parent Repo Sequence Diagram With CI Steps
+autonumber "<b>[000]"
+actor "A. Site User" as U
+collections "B. Child Submodules Repo" as C
+database "Tugboat" as T
+collections "C. Parent Repo" as P
+database "Platform" as H
+database "D. Slack" as S
+
+group interaction with submodule repo
+
+  U -> C : pull request created
+  C -> T : triggers Tugboat build
+  T -> C : update build status
+  T -> S : notify team of PR build status
+  U -> C : pull request rebased
+  C -> T : triggers environment tear down on Tugboat
+  C -> P : workflow dispatcher signal
+  P -> P : new branch triggered
+  P -> P : new PR triggered on new branch
+  P -> H : triggers Platform.sh build
+  H -> P : update build status
+  P -> S : send link to PR on parent
+  
+end
+
+group interaction with parent repo
+
+  U -> P : rebase PR
+  P -> H : triggers environment tear down on Platform.sh
+  P -> S : notify team of PR rebase
+
+end
+@enduml
