@@ -10,6 +10,8 @@ jobs:
   auto-pr:
     runs-on: ubuntu-latest
     steps:
+      - name: Always run
+        run: env
       - name: Checkout
         uses: actions/checkout@v2
         with:
