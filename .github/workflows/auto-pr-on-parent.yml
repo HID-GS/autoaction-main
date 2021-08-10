@@ -27,13 +27,16 @@ jobs:
       - name: Event Information
         run: |
           echo "Event '${{ github.event.action }}' received from '${{ github.event.client_payload.repository }}' commit '${{ github.event.client_payload.sha }}'"
-      - name: List remote branches
+      - name: Check for pre-existing PR on same submodule
         run: |
-          echo "Before fetch"
-          git ls-remote
-          git fetch --all
-          echo "After fetch"
-          git ls-remote
+          echo "check for pending PRs"
+          git ls-remote | \
+            awk '$0 ~ /refs\/pull\/[0-9]*\/merge/ {print $1}' | \
+            while read hex; do \
+              git show --name-stats $hex 2> /dev/null | \
+              awk '$0 ~ /^[AMD]\t/ {print $2}'
+            done
+          echo "done"
       - name: APOP Create PR
         if: github.event.action == 'apop-pr-merged'
         run: |
@@ -59,11 +62,4 @@ jobs:
 
             Origin Repository: ${{ github.event.client_payload.repository }}
             Origin Commit: ${{ github.event.client_payload.sha }}
-      - name: List remote branches 2
-        run: |
-          echo "Before fetch"
-          git ls-remote
-          git fetch --all
-          echo "After fetch"
-          git ls-remote
 
