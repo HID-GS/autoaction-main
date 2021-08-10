@@ -1,4 +1,4 @@
-name: APoP Responder
+name: APRoP Responder
 
 on: [repository_dispatch]
 
