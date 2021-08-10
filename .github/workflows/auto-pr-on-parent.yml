@@ -23,7 +23,7 @@ jobs:
           path: ${{ github.event.client_payload.repository }}
           repository: hid-gs/${{ github.event.client_payload.repository }}
           ref: ${{ github.event.client_payload.sha }}
-        if: github.event.action == 'apop-pr-merged'
+        if: github.event.action == 'aprop-pr-merged'
       - name: Event Information
         run: |
           echo "Event '${{ github.event.action }}' received from '${{ github.event.client_payload.repository }}' commit '${{ github.event.client_payload.sha }}'"
