@@ -59,4 +59,11 @@ jobs:
 
             Origin Repository: ${{ github.event.client_payload.repository }}
             Origin Commit: ${{ github.event.client_payload.sha }}
+      - name: List remote branches 2
+        run: |
+          echo "Before fetch"
+          git ls-remote
+          git fetch --all
+          echo "After fetch"
+          git ls-remote
 
