@@ -27,6 +27,13 @@ jobs:
       - name: Event Information
         run: |
           echo "Event '${{ github.event.action }}' received from '${{ github.event.client_payload.repository }}' commit '${{ github.event.client_payload.sha }}'"
+      - name: List remote branches
+        run: |
+          echo "Before fetch"
+          git ls-remote
+          git fetch --all
+          echo "After fetch"
+          git ls-remote
       - name: APOP Create PR
         if: github.event.action == 'apop-pr-merged'
         run: |
