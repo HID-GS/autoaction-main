@@ -1,6 +1,11 @@
 #!/usr/bin/env bash
 PR_LINK="${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/pulls"
 
+if [ ${SLACK_URL:-UNDEFINED} == "undefined" ]; then
+  echo "missing slack url variable"
+  exit
+fi
+
 curl -s -X POST -d "payload={
     \"blocks\":[{
       \"type\":\"header\",
