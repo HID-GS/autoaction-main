@@ -82,6 +82,8 @@ jobs:
             Origin Commit: ${{ github.event.client_payload.sha }}
       - name: Notify via Slack
         if: github.event.action == 'aprop-pr-merged'
+        env:
+          SLACK_URL: ${{ secrests.SLACK_URL }}
         run: |
           ./scripts/slack_pr_link.bash
 
