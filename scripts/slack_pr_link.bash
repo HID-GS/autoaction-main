@@ -14,7 +14,7 @@ curl -s -X POST -d "payload={
       \"text\":{
         \"type\":\"mrkdwn\",
         \"text\":\"New PR created on $GITHUB_REPOSITORY\"
-        }
+        },
       \"accessory\":{
         \"type\":\"button\",
         \"text\":{
