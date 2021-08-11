@@ -69,6 +69,7 @@ jobs:
           git checkout -b ${BRANCHNAME}; \
           git push -u origin ${BRANCHNAME}
       - name: APRoP Create PR
+        if: github.event.action == 'aprop-pr-merged'
         uses: devops-infra/action-pull-request@v0.4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
