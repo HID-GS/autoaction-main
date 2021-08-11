@@ -26,7 +26,6 @@ curl -s -X POST -d "payload={
         \"url\":\"$PR_LINK\",
         \"action_id\":\"button-action\"
         }
-      }
-    }]
-  }" ${SLACK_URL}
+      }]
+    }" ${SLACK_URL}
 
