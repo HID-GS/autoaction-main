@@ -13,7 +13,7 @@ curl -s -X POST -d "payload={
       \"type\":\"section\",
       \"text\":{
         \"type\":\"mrkdwn\",
-        \"text\":\"New PR created on ${GITHUB_REPOSITORY}\"
+        \"text\":\"New PR created on $GITHUB_REPOSITORY\"
         }
       \"accessory\":{
         \"type\":\"button\",
@@ -23,32 +23,10 @@ curl -s -X POST -d "payload={
           \"emoji\":true
         },
         \"value\":\"click_me_pull\",
-        \"url\":\"${PR_LINK}\",
+        \"url\":\"$PR_LINK\",
         \"action_id\":\"button-action\"
         }
-      },{
-      \"type\":\"section\",
-      \"fields\":[
-        {
-          \"type\":\"mrkdwn\",
-          \"text\":\"*Project*\n<https://dashboard.tugboat.qa/$TUGBOAT_PROJECT_ID|$TUGBOAT_PROJECT>\"
-        },
-        {
-          \"type\":\"mrkdwn\",
-          \"text\":\"*Service*\n<https://dashboard.tugboat.qa/$TUGBOAT_SERVICE_ID|$TUGBOAT_SERVICE>\"
-        }]
-      },{
-      \"type\":\"section\",
-      \"fields\":[
-        {
-          \"type\":\"mrkdwn\",
-          \"text\":\"*Repository*\n<https://github.com/$TUGBOAT_REPO|$TUGBOAT_GITHUB_REPO>\"
-        },
-        {
-          \"type\":\"mrkdwn\",
-          \"text\":\"*Commit*\n<https://github.com/$TUGBOAT_REPO/tree/$TUGBOAT_PREVIEW_SHA|$TUGBOAT_PREVIEW_SHA>\"
-        }
-      ]
+      }
     }]
   }" ${SLACK_URL}
 
