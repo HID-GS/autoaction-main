@@ -45,7 +45,7 @@ jobs:
                 awk '$0 ~ /^[AMD]\t/ {print $2}')
               if [ $COMMIT_CHANGED == ${{ github.event.client_payload.repository }} ]; then
                 echo "$PULL_HEX changes $COMMIT_CHANGED, zapping PR $MERGE_PR"
-                git show-ref $PULL_HEX | \
+                git show-ref | \
                   sed -ne "s#^${PULL_HEX}.*refs/remotes/origin/\(.*\)#\1#gp" | \
                   while read PULL_BRANCH; do
                     echo "${PULL_HEX} used by branch ${PULL_BRANCH}"
