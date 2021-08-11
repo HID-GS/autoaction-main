@@ -62,7 +62,7 @@ jobs:
           BRANCHNAME="${{ github.event.client_payload.repository }}__update__${GITHUB_SHA}"
           git checkout -b ${BRANCHNAME}; \
           git push -u origin ${BRANCHNAME}
-      - name: Create PR
+      - name: APRoP Create PR
         uses: devops-infra/action-pull-request@v0.4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
