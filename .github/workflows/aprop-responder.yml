@@ -80,7 +80,7 @@ jobs:
 
             Origin Repository: ${{ github.event.client_payload.repository }}
             Origin Commit: ${{ github.event.client_payload.sha }}
-      - name: Notify via Slack
+      - name: APRoP Parent Notify Slack
         if: github.event.action == 'aprop-pr-merged'
         env:
           SLACK_URL: ${{ secrets.SLACK_URL }}
