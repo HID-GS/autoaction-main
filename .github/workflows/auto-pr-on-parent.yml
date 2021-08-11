@@ -48,8 +48,8 @@ jobs:
               fi
             done
           echo "done"
-      - name: APOP Create PR
-        if: github.event.action == 'apop-pr-merged'
+      - name: APRoP Create Branch
+        if: github.event.action == 'aprop-pr-merged'
         run: |
           cd ${{ github.event.client_payload.repository }}; \
           git fetch --all; \
