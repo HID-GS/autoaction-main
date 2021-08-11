@@ -44,7 +44,12 @@ jobs:
               COMMIT_CHANGED=$(git show --name-status $PULL_HEX 2> /dev/null | \
                 awk '$0 ~ /^[AMD]\t/ {print $2}')
               if [ $COMMIT_CHANGED == ${{ github.event.client_payload.repository }} ]; then
-                echo "$PULL_HEX changes $COMMIT_CHANGED, need to zap PR $MERGE_PR"
+                echo "$PULL_HEX changes $COMMIT_CHANGED, zapping PR $MERGE_PR"
+                git show-ref $PULL_HEX | \
+                  sed -ne "s#^${PULL_HEX}.*refs/remotes/origin/\(.*\)#\1#gp" | \
+                  while read PULL_BRANCH; do
+                    git push origin :${PULL_BRANCH}
+                  done
               fi
             done
           echo "done"
