@@ -15,7 +15,11 @@ group interaction with submodule repo
   C -> T : triggers Tugboat build
   T -> C : update build status
   T -> S : notify team of PR build status
-  U -> C : pull request rebased
+  C -> S : notify team of new PR, link to PR review
+  U -> C : approves PR
+  C -> S : notify team of PR approval, link to PR rebase
+  U -> C : rebase PR
+  C -> S : notify team of PR rebase, link to repo
   C -> T : triggers environment tear down on Tugboat
   C -> P : workflow dispatcher signal
   P -> P : new branch triggered
@@ -23,7 +27,7 @@ group interaction with submodule repo
   P -> H : triggers Platform.sh build
   H -> P : update build status
   P -> S : send link to PR on parent
-  
+
 end
 
 group interaction with parent repo
