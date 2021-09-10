@@ -18,4 +18,4 @@ Once a PR is reviewed, a github action triggers a notification to inform other d
 
 Once a PR is rebased, then a last notification to the team, with information on who rebased the PR and with a link to the updated codebase.
 
-![PR merge notification](docs/git-automation-3-PR-merge.png)
+![PR merge notification](docs/git-automation-3-PR-merged.png)
