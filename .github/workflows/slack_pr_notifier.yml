@@ -1,0 +1,56 @@
+name: Slack PR Notifier
+
+on:
+  pull_request:
+
+jobs:
+  slack-pr-merge-notify:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Dump context
+      uses: crazy-max/ghaction-dump-context@v1
+    - name: Notify via Slack
+      env:
+        SLACK_URL: ${{ secrets.SLACK_URL }}
+      run: |
+        env | sort
+        PR=$(echo ${GITHUB_REF} | sed 's#refs/pull/\([0-9]*\)/merge#\1#g')
+        PR_LINK="${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/pull/${PR}/files#submit-review"
+        PR_PARENT=${{ secrets.WA_PARENT_REPO }}
+        PR_HEADER="$(if [ "${PR_PARENT:-UNDEFINED}" == "UNDEFINED" ]; then echo "Project"; else echo "Sub-Project"; fi)"
+
+        if [ "${SLACK_URL:-UNDEFINED}" == "UNDEFINED" ]; then
+          echo "missing slack url variable"
+          exit
+        fi
+
+        curl -s -X POST -d "payload={
+            \"blocks\":[{
+              \"type\":\"header\",
+              \"text\":{
+                  \"type\":\"plain_text\",
+                  \"text\":\"PR on $PR_HEADER $GITHUB_REPOSITORY\",
+                  \"emoji\":true
+                }
+              },{
+              \"type\":\"section\",
+              \"text\":{
+                \"type\":\"mrkdwn\",
+                \"text\":\"New PR created on $GITHUB_REPOSITORY by $GITHUB_ACTOR on branch $GITHUB_HEAD_REF\"
+                },
+              \"accessory\":{
+                \"type\":\"button\",
+                \"text\":{
+                  \"type\":\"plain_text\",
+                  \"text\":\"Review PR\",
+                  \"emoji\":true
+                },
+                \"value\":\"click_me_pull\",
+                \"url\":\"$PR_LINK\",
+                \"action_id\":\"button-action\"
+                }
+              }]
+            }" $SLACK_URL
+
+
+

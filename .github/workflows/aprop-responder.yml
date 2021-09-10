@@ -9,10 +9,10 @@ permissions:
 jobs:
   auto-pr:
     runs-on: ubuntu-latest
+    if: github.event.action == 'aprop-pr-merged'
     steps:
-      - name: Always run
-        run: |
-          env | sort
+      - name: Dump context
+        uses: crazy-max/ghaction-dump-context@v1
       - name: Checkout
         uses: actions/checkout@v2
         with:
@@ -23,10 +23,6 @@ jobs:
           path: ${{ github.event.client_payload.repository }}
           repository: hid-gs/${{ github.event.client_payload.repository }}
           ref: ${{ github.event.client_payload.sha }}
-        if: github.event.action == 'aprop-pr-merged'
-      - name: Event Information
-        run: |
-          echo "Event '${{ github.event.action }}' received from '${{ github.event.client_payload.repository }}' commit '${{ github.event.client_payload.sha }}'"
       - name: Check for pre-existing PR on same submodule
         run: |
           echo "check for pending PRs"
@@ -55,7 +51,6 @@ jobs:
             done
           echo "done"
       - name: APRoP Create Branch
-        if: github.event.action == 'aprop-pr-merged'
         run: |
           cd ${{ github.event.client_payload.repository }}; \
           git fetch --all; \
@@ -69,7 +64,6 @@ jobs:
           git checkout -b ${BRANCHNAME}; \
           git push -u origin ${BRANCHNAME}
       - name: APRoP Create PR
-        if: github.event.action == 'aprop-pr-merged'
         uses: devops-infra/action-pull-request@v0.4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
@@ -80,10 +74,4 @@ jobs:
 
             Origin Repository: ${{ github.event.client_payload.repository }}
             Origin Commit: ${{ github.event.client_payload.sha }}
-      - name: APRoP Parent Notify Slack
-        if: github.event.action == 'aprop-pr-merged'
-        env:
-          SLACK_URL: ${{ secrets.SLACK_URL }}
-        run: |
-          ./scripts/slack_pr_link.bash
 
